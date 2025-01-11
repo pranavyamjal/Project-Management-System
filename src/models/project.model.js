@@ -1,5 +1,6 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../db/index.db.js';
+import Task from './task.model.js';
 
 const Project = sequelize.define(
     'Project', 
@@ -24,5 +25,9 @@ const Project = sequelize.define(
         },
 
     });
+
+// Association with Task model / Relationship
+Project.hasMany(Task, { foreignKey: 'projectId' });
+Task.belongsTo(Project, { foreignKey: 'projectId' });
 
 export default Project;

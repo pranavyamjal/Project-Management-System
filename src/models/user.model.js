@@ -2,6 +2,7 @@ import { DataTypes } from 'sequelize';
 import sequelize from '../db/index.db.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import Project from './project.model.js';
 
 const User = sequelize.define(
   'User', 
@@ -47,6 +48,15 @@ User.prototype.comparePassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
 
+
+// Association with Project model / Relationship
+
+User.belongsToMany(Project, { foreignKey: 'userId' });
+
+
+
+
+
 // Generate Access Token
 User.prototype.generateAccessToken = function () {
   const token = jwt.sign({ id: this.id, username: this.username, email: this.email }, process.env.ACCESS_TOKEN_SECRET, {
@@ -62,5 +72,8 @@ User.prototype.generateRefreshToken = function () {
   });
   return refreshToken;
 };
+
+
+
 
 export default User;
