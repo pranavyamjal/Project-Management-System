@@ -1,7 +1,7 @@
-import { ApiError } from "../utils/ApiError.js";  // Custom error handling
-import { asyncHandler } from "../utils/asyncHandler.js";  // Async handler utility
+import  ApiError  from "../utils/ApiError.js";  // Custom error handling
+import asyncHandler from "../utils/asyncHandler.js"
 import jwt from "jsonwebtoken";  // JWT verification
-import { User } from "../models/user.model.js";  // User model
+import  User  from "../models/user.model.js";  // User model
 
 // Middleware to verify JWT token
 export const verifyJWT = asyncHandler(async (req, _, next) => {
@@ -34,4 +34,5 @@ export const verifyJWT = asyncHandler(async (req, _, next) => {
     // If any error occurs (including token verification or user lookup failure), throw an Unauthorized error
     throw new ApiError(401, error?.message || "Invalid access token");
   }
+
 });

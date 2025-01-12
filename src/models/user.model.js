@@ -62,7 +62,8 @@ User.prototype.comparePassword = async function (password) {
 
 // Association with Project model / Relationship
 
-User.belongsToMany(Project, { foreignKey: 'userId' });
+User.belongsToMany(Project, { through: 'UserProjects', foreignKey: 'userId' });
+Project.belongsToMany(User, { through: 'UserProjects', foreignKey: 'projectId' });
 
 
 
