@@ -97,7 +97,7 @@ const loginUser = asyncHandler(async (req, res) => {
     }
 
     const user = await User.findOne({
-        where: { email: email.toLowerCase().trim() }
+        where: { email: email }
     });
 
     if (!user) {
@@ -197,6 +197,21 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
 });
 
 const getCurrentUser = asyncHandler(async (req, res) => {
+
+    if (!req.user) {
+        throw new ApiError(401, "Unauthorized request");
+    }
+
+    const user = await User.findByPk(req.user.id, {
+        attributes: {
+            exclude: ["password", "refreshToken"]
+        }
+    });
+
+    if (!user) {
+        throw new ApiError(500, "Unable to fetch user details");
+    }
+
     return res
         .status(200)
         .json(new ApiResponse(200, req.user, "Current user fetched successfully"));
