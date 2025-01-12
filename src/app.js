@@ -33,7 +33,7 @@ const swaggerDefinition = {
   },
   servers: [
     {
-      url: "http://localhost:8000",  // Update this if needed
+      url: "https://localhost:8000",  // Update this if needed
     },
   ],
 };
