@@ -33,7 +33,7 @@ const swaggerDefinition = {
   },
   servers: [
     {
-      url: "https://localhost:8000",  // Update this if needed
+      url: "https://project-management-system-1-hk5n.onrender.com", 
     },
   ],
 };
