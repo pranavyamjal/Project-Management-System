@@ -6,14 +6,14 @@ dotenv.config({
   path: '../.env',
 });
 
-// Setup Sequelize connection to MySQL database
+// db connectr
 const sequelize = new Sequelize({
   dialect: 'mysql',
   host: process.env.DATABASE_HOST || 'localhost',  // Default to localhost if DB_HOST is not set
   username: process.env.DATABASE_USER || 'root',   // Default to 'root' user
   password: process.env.DATABASE_PASSWORD || '',   // Default to empty password
   database: process.env.DATABASE_NAME || 'your_database_name', // Set the database name here
-  logging: false, // You can enable logging for debugging purposes (set to true if needed)
+  logging: true, // You can enable logging for debugging purposes (set to true if needed)
 });
 
 //console.log(process.env.DATABASE_USER);
