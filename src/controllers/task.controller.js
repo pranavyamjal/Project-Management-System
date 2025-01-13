@@ -6,12 +6,25 @@ import ApiResponse from "../utils/ApiResponse.js";
 
 const createTask = asyncHandler(async (req, res) => {
 
-    const {name, description} = req.body
+    const {title, status} = req.body
+    const {projectId} = req.params
+
+    if(!title || !status || !projectId){
+        throw new ApiError(400, "Missing required fields")
+    }
+
+    if(status !== "To Do" && status !== "In Progress" && status !== "Done"){
+        throw new ApiError(400, "Invalid status (Only To Do, In Progress and Done are allowed)")
+    }
+
+    if(!projectId){
+        throw new ApiError(400, "Project ID is required")
+    }
 
     const task = await Task.create({
-        name,
-        description,
-        projectId: req.params.id
+        title: title,
+        status: status,
+        projectId: projectId
     })  
 
     if(!task){
@@ -64,11 +77,21 @@ const getTaskById = asyncHandler(async (req, res) => {
 
 const updateTask = asyncHandler(async (req, res) => {
 
-    const {name, description} = req.body
+    const {title, status} = req.body
+
+    if(status !== "To Do" && status !== "In Progress" && status !== "Done"){
+        throw new ApiError(400, "Invalid status (Only To Do, In Progress and Done are allowed)")
+    }
+
+    if(!title || !status){
+        throw new ApiError(400, "Missing required fields")
+    }
+
+
 
     await Task.findByPk(req.params.id).then((task) => {
-        task.name = name
-        task.description = description
+        task.title = title
+        task.status = status
         task.save()
     })
 
@@ -96,7 +119,25 @@ const deleteTask = asyncHandler(async (req, res) => {
 
 const toggleTaskStatus = asyncHandler(async (req, res) => {
 
-    await Task.findByPk(req.params.id).then((task) => {
+    const {taskId} = req.params
+    const {task} = req.body
+
+    if(!taskId){
+        throw new ApiError(400, "Task ID is required")
+    }
+
+    if(!task){
+        throw new ApiError(400, "Task is required")
+    }
+
+    if(task.status !== "To Do" && task.status !== "In Progress" && task.status !== "Done"){
+        throw new ApiError(400, "Invalid status (Only To Do, In Progress and Done are allowed)")
+    }
+
+
+
+
+    await Task.findByPk(taskId).then((task) => {
         task.status = task.status === "To Do" ? "In Progress" : "To Do"
         task.save()
     })
