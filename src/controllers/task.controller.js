@@ -7,7 +7,7 @@ import ApiResponse from "../utils/ApiResponse.js";
 const createTask = asyncHandler(async (req, res) => {
 
     const {title, status} = req.body
-    const {projectId} = req.params
+    const {projectId} = req.params.id
 
     if(!title || !status || !projectId){
         throw new ApiError(400, "Missing required fields")
@@ -119,7 +119,7 @@ const deleteTask = asyncHandler(async (req, res) => {
 
 const toggleTaskStatus = asyncHandler(async (req, res) => {
 
-    const {taskId} = req.params
+    const {taskId} = req.params.id
     const {task} = req.body
 
     if(!taskId){
