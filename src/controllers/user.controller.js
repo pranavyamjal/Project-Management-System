@@ -1,6 +1,8 @@
 import ApiError from "../utils/ApiError.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import User from "../models/user.model.js";
+import Project from "../models/project.model.js";
+import Task from "../models/task.model.js";
 import ApiResponse from "../utils/ApiResponse.js";
 import jwt from "jsonwebtoken";
 import { Op } from 'sequelize';
@@ -260,6 +262,14 @@ const getProjectAssignedToUser = asyncHandler(async (req, res) => {
         }]
     });
 
+    if (!projects) {
+        throw new ApiError(500, "Unable to fetch user projects");
+    }
+
+    if (projects.length === 0) {
+        throw new ApiError(404, "Projects not found");
+    }
+
     return res
         .status(200)
         .json(new ApiResponse(200, projects, "User projects fetched successfully"));
@@ -267,12 +277,24 @@ const getProjectAssignedToUser = asyncHandler(async (req, res) => {
 
 const getTaskAssignedToUser = asyncHandler(async (req, res) => {
     const tasks = await Task.findAll({
-        where: { userId: req.user.id },
         include: [{
             model: Project,
-            attributes: ["name", "description"]
+            attributes: ["name", "description"],
+            include: [{
+                model: User,
+                where: { id: req.user.id },
+                attributes: [] // No need to return user data
+            }]
         }]
     });
+
+    if(!tasks) {
+        throw new ApiError(500, "Unable to fetch user tasks");
+    }
+
+    if(tasks.length === 0) {
+        throw new ApiError(404, "Tasks not found");
+    }
 
     return res
         .status(200)
