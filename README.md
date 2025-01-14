@@ -31,6 +31,15 @@ Project Management System - Built using Node.js, Express.js and MySQL, it is bac
 #### Live Link : https://project-management-system-1-hk5n.onrender.com/api-docs/#/
 
 
+### API Documentation : 
+
+- Postman - 
+https://app.getpostman.com/join-team?invite_code=43ed8bada615bfe3f7f86ae8d2b9343354a092cd7480eee8754dab7491dfa343
+
+- Swagger -
+ https://project-management-system-1-hk5n.onrender.com/api-docs
+
+
 #### Codebase : https://github.com/pranavyamjal/Project-Management-System
 
 ## Steps to deploy locally
