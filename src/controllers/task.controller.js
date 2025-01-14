@@ -7,11 +7,7 @@ import ApiResponse from "../utils/ApiResponse.js";
 const createTask = asyncHandler(async (req, res) => {
 
     const {title, status} = req.body
-<<<<<<< HEAD
     const projectId = req.params.id
-=======
-    const {projectId} = req.params.id
->>>>>>> 53e17ee20859de535edfc030e7750c0f6359eb4d
 
     console.log(projectId);
     console.log(req.params);
@@ -112,26 +108,7 @@ const updateTask = asyncHandler(async (req, res) => {
 
 const deleteTask = asyncHandler(async (req, res) => {
 
-<<<<<<< HEAD
     const taskId = req.params.id
-=======
-    await Task.findByPk(req.params.id).then((task) => {
-        task.destroy()
-    })
-
-    return res
-    .status(200)
-    .json(
-        new ApiResponse(200, null, "Task deleted successfully")
-    )
-
-})
-
-const toggleTaskStatus = asyncHandler(async (req, res) => {
-
-    const {taskId} = req.params.id
-    const {task} = req.body
->>>>>>> 53e17ee20859de535edfc030e7750c0f6359eb4d
 
     if(!taskId){
         throw new ApiError(400, "Task ID is required")
