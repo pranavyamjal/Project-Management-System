@@ -31,9 +31,9 @@ import {
  *           schema:
  *             type: object
  *             properties:
- *               name:
+ *               title:
  *                 type: string
- *               description:
+ *               status:
  *                 type: string
  *     responses:
  *       201:
@@ -67,7 +67,7 @@ router.route("/createTask/:id").post(verifyJWT, createTask);
  *                 properties:
  *                   id:
  *                     type: integer
- *                   name:
+ *                   title:
  *                     type: string
  *                   description:
  *                     type: string
@@ -142,9 +142,7 @@ router.route("/getTaskById/:id").get(verifyJWT, getTaskById);
  *           schema:
  *             type: object
  *             properties:
- *               name:
- *                 type: string
- *               description:
+ *               title:
  *                 type: string
  *               status:
  *                 type: string
@@ -199,9 +197,20 @@ router.route("/deleteTask/:id").delete(verifyJWT, deleteTask);
  *       - name: id
  *         in: path
  *         required: true
- *         description: The task ID to toggle status.
+ *         description: The task ID to update.
  *         schema:
  *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *               status:
+ *                 type: string
  *     responses:
  *       200:
  *         description: Task status successfully toggled
