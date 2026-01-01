@@ -3,6 +3,11 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // Create an Express app
 const app = express();
@@ -48,8 +53,8 @@ const swaggerDefinition = {
 };
 
 const options = {
-  swaggerDefinition,
-  apis: ["./src/routes/**/*.js", "./dist/routes/**/*.js"], // Support both src and dist
+  definition: swaggerDefinition,
+  apis: [`${__dirname}/routes/user.routes.js`, `${__dirname}/routes/project.routes.js`, `${__dirname}/routes/task.routes.js`],
 };
 
 const swaggerSpec = swaggerJsdoc(options);
