@@ -10,11 +10,12 @@ const startServer = async () => {
     console.log('Models synced successfully');
 
     const port = process.env.PORT || 5000;
-    app.listen(port, () => {
-      console.log(`Server is running on port ${port}`);
+    app.listen(port, '0.0.0.0', () => {
+      console.log(`Server is running on http://0.0.0.0:${port}`);
     });
   } catch (error) {
     console.error('Error during server start:', error);
+    process.exit(1);
   }
 };
 

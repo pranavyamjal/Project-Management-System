@@ -58,5 +58,10 @@ app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/projects", projectRoutes);
 app.use("/api/v1/tasks", taskRoutes);
 
+// Define a route for the root path
+app.get("/", (req, res) => {
+    res.send("Welcome to the Project Management API. Visit /api-docs for documentation.");
+});
+
 // Start the app
 export default app;
