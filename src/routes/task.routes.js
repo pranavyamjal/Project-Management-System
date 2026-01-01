@@ -1,4 +1,4 @@
-import router from "./project.routes.js";
+import { Router } from "express";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 import { 
     createTask,
@@ -8,6 +8,8 @@ import {
     deleteTask,
     toggleTaskStatus 
 } from "../controllers/task.controller.js";
+
+const router = Router();
 
 /**
  * @swagger

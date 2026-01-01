@@ -36,11 +36,20 @@ const swaggerDefinition = {
       url: "http://13.201.9.134:5000" || "http://localhost:8000", 
     },
   ],
+  components: {
+    securitySchemes: {
+      BearerAuth: {
+        type: "http",
+        scheme: "bearer",
+        bearerFormat: "JWT",
+      },
+    },
+  },
 };
 
 const options = {
   swaggerDefinition,
-  apis: ["./src/routes/*.js"], // This will point to your route files
+  apis: ["./src/routes/**/*.js", "./dist/routes/**/*.js"], // Support both src and dist
 };
 
 const swaggerSpec = swaggerJsdoc(options);
